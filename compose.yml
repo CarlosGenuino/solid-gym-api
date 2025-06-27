@@ -1,0 +1,14 @@
+services:
+  solid-gym-db:
+    image: bitnami/postgresql:latest
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: solid_gym
+    ports:
+      - "5432:5432"
+    volumes:
+      - solid-gym-db-data:/var/lib/postgresql/data
+
+volumes:
+  solid-gym-db-data:
