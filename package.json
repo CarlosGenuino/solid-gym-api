@@ -12,6 +12,7 @@
   "description": "",
   "devDependencies": {
     "@eslint/js": "9.29.0",
+    "@types/bcryptjs": "2.4.6",
     "@types/node": "^24.0.4",
     "eslint": "9.29.0",
     "globals": "16.2.0",
@@ -22,6 +23,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.10.1",
+    "bcryptjs": "3.0.2",
     "dotenv": "^16.6.1",
     "fastify": "^5.4.0",
     "prisma": "^6.10.1",

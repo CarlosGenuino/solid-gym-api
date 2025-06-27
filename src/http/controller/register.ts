@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { hashPassword } from "@/util/hash";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
@@ -22,11 +23,13 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
         return reply.status(409).send({ error: 'User already exists' });
     }
 
+    const hashedPassword = await hashPassword(password);
+    
     const user = await prisma.user.create({
         data: {
             name,
             email,
-            password,
+            password: hashedPassword,
         }
     })
 
