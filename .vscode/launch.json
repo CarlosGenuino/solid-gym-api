@@ -9,7 +9,36 @@
       "runtimeArgs": ["tsx", "watch", "src/server.ts"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "skipFiles": ["<node_internals>/**"]
+      "skipFiles": ["<node_internals>/**"],
+      "options": {
+        "shell": "bash"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run Tests",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "test"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "options": {
+        "shell": "bash"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run Tests (Watch Mode)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "test:watch"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "options": {
+        "shell": "bash"
+      }
     }
   ]
 }
