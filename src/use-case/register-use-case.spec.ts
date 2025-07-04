@@ -1,15 +1,21 @@
 import { InMemoryUsersRepository } from "@/repository/in-memory/in-memory-user-repository";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { RegisterUseCase } from "./register-use-case";
 import { comparePasswords } from "@/util/hash";
+import UserRepository from "@/repository/user-repository";
 
+let repository: UserRepository
+let sut: RegisterUseCase
 
 describe("Register Use Case", async () => {
-  it("should be able to register a user", async () => {
-    const repository = new InMemoryUsersRepository();
-    const useCase = new RegisterUseCase(repository);
 
-    const user = await useCase.execute({
+  beforeEach(() => {
+    repository = new InMemoryUsersRepository()
+    sut = new RegisterUseCase(repository)
+  })
+  it("should be able to register a user", async () => {
+    
+    const user = await sut.execute({
       name: "John Doe",
       email: "john.doe@example.com",
       password: "123456",
@@ -24,17 +30,15 @@ describe("Register Use Case", async () => {
   });
 
   it("should not be able to register a user with an existing email", async () => {
-    const repository = new InMemoryUsersRepository();
-    const useCase = new RegisterUseCase(repository);
     const email = "john.doe@example.com";
-    await useCase.execute({
+    await sut.execute({
       name: "Jane Doe",
       email,
       password: "123456",
     });
 
     await expect(
-      useCase.execute({
+      sut.execute({
         name: "John Doe",
         email,
         password: "123456",
