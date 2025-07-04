@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { AuthenticateUseCase } from "./authenticate-use-case";
 import { InvalidCredentialError } from "./error/invalid-credential-error";
 import UserRepository from "@/repository/user-repository";
+import makeAuthenticateUseCase from "./factory/make-authenticate-use-case";
 
 let repository: UserRepository
 let sut: AuthenticateUseCase
@@ -11,7 +12,7 @@ let sut: AuthenticateUseCase
 describe('AuthenticateUseCase', async () => {
     beforeEach(() => {
         repository = new InMemoryUsersRepository()
-        sut = new AuthenticateUseCase(repository)
+        sut = makeAuthenticateUseCase(repository)
     })
     it('should throw InvalidCredentialError for invalid credentials to wrong email', async () => {
         await expect(() => sut.execute({ email: 'invalid@example.com', password: 'wrongpassword' }))

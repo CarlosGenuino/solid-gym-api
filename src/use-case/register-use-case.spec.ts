@@ -1,17 +1,14 @@
-import { InMemoryUsersRepository } from "@/repository/in-memory/in-memory-user-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 import { RegisterUseCase } from "./register-use-case";
 import { comparePasswords } from "@/util/hash";
-import UserRepository from "@/repository/user-repository";
+import makeRegisterUseCase from "./factory/make-register-use-case";
 
-let repository: UserRepository
 let sut: RegisterUseCase
 
 describe("Register Use Case", async () => {
 
   beforeEach(() => {
-    repository = new InMemoryUsersRepository()
-    sut = new RegisterUseCase(repository)
+    sut = makeRegisterUseCase()
   })
   it("should be able to register a user", async () => {
     
