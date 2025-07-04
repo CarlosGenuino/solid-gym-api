@@ -17,12 +17,12 @@ export class AuthenticateUseCase{
 
     async execute({email, password}: AuthenticateUseCaseInput): Promise<AuthenticateUseCaseOutput>{
         const user = await this.userRepository.getUserByEmail(email)
-
+                
         if (!user){
             throw new InvalidCredentialError()
         }
 
-        const doesPasswordMatches = comparePasswords(password, user.password)
+        const doesPasswordMatches = await comparePasswords(password, user.password)
 
         if(!doesPasswordMatches){
             throw new InvalidCredentialError()
