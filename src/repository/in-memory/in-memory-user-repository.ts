@@ -6,6 +6,10 @@ import { hashPassword } from "@/util/hash";
 
 
 export class InMemoryUsersRepository implements UserRepository {
+    async getUserById(id: string): Promise<User | null> {
+        const user = this.users.find(user => user.id === id);
+        return user || null;
+    }
     public users: User[] = [];
 
     async createUser(data: Prisma.UserCreateInput) {

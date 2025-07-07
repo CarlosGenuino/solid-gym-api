@@ -13,7 +13,8 @@ describe('AuthenticateUseCase', async () => {
     beforeEach(() => {
         repository = new InMemoryUsersRepository()
         sut = makeAuthenticateUseCase(repository)
-    })
+    });
+
     it('should throw InvalidCredentialError for invalid credentials to wrong email', async () => {
         await expect(() => sut.execute({ email: 'invalid@example.com', password: 'wrongpassword' }))
             .rejects.toThrowError(InvalidCredentialError);
@@ -22,13 +23,12 @@ describe('AuthenticateUseCase', async () => {
     it('should throw InvalidCredentialError for invalid credentials to wrong password', async () => {
         await repository.createUser({ email: 'valid@example.com', name: 'Valid User', password: 'correctpassword' });
         await expect(() => sut.execute({ email: 'valid@example.com', password: 'wrongpassword' })).rejects.toThrowError(InvalidCredentialError);
-    })
+    });
 
     it('should be able authenticate', async ()=> {
         await repository.createUser({ email: 'valid@example.com', name: 'Valid User', password: 'correctpassword' });
         const {user} = await sut.execute({ email: 'valid@example.com', password: 'correctpassword' });
         expect(user).toHaveProperty('id');
         expect(user).toHaveProperty('email', 'valid@example.com');
-
-    })
+    });
 });
