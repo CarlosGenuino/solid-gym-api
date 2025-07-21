@@ -26,7 +26,7 @@ describe("Get Profile Use Case", async ()=> {
         expect(result.user).toHaveProperty('id')
     })
 
-    it("It should throw Error when a profile user does not exists", ()=> {
-        expect(()=> sut.execute({userId: 'bla'})).rejects.toThrowError(ResourceNotFoundError)
+    it("It should throw Error when a profile user does not exists", async ()=> {
+       await expect(()=> sut.execute({userId: 'bla'})).rejects.toThrowError(ResourceNotFoundError)
     })
 })
