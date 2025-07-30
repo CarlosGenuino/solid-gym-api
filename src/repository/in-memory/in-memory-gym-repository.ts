@@ -6,6 +6,7 @@ const academias: Gym[] = []
 
 export class InMemoryGymRepository implements GymRepository {
     
+    
     async create(data: Prisma.GymCreateInput): Promise<Gym> {
         const academia = {
             id: data.id || randomUUID(),
@@ -23,6 +24,10 @@ export class InMemoryGymRepository implements GymRepository {
     async getGymById(gymId: string): Promise<Gym | null> {
         const academia = academias.find((gym) => gym.id === gymId);
         return academia || null;
+    }
+
+    async GetGymByQuery(query: string, page: number): Promise<Array<Gym>> {
+        return academias.filter(a => a.title.includes(query)).slice((page -1) * 20, page * 20)
     }
 
 }
